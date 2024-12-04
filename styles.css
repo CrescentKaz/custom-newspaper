@@ -1,2 +1,106 @@
-:root {}
+:root {
+    --blackish: #010108;
+    --dark_purple: #1B0259;
+    --light_purple: #866BC9;
+    --navy_black: #0E0D30;
+    --dark_blue: #050178;
+    --royal_blue: #0704C2;
+    --pastel_blue: #4D7BF0;
+    --whiteish: #FCFCFC;
+}
 
+#nav_bar {
+    position: fixed;
+    top: 0;
+    height: 5vh;
+    width: 100vw;
+    background-color: var(--dark_purple);
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+
+#nav_bar a {
+    text-decoration: none; 
+    color: var(--whiteish);
+}
+
+.nav-button {
+    margin: 0 15px;
+    display: flex;
+    flex-direction: row;
+    float: left;
+    align-items: center;
+    background-image: linear-gradient(45deg, var(--blackish), var(--royal_blue));
+    color: var(--pastel_blue);
+    border-radius: 0 50%;
+    height: 4vh;
+    border: 1px solid var(--blackish);
+}
+
+ul li {
+    padding: 0 40px 0 0;
+}
+
+.nav-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+}
+
+#paper {
+    background-color: black;
+}
+
+#headline-section {
+    background-color: brown;
+}
+
+.articles {
+    height: 40vh;
+}
+
+#front-page-article {
+    background-color: red;
+    height: 75vh;
+}
+
+#second-article {
+    background-color: orange;
+}
+
+#third-article {
+    background-color: yellow;
+}
+
+#fourth-article {
+    background-color: green;
+}
+
+#fifth-article {
+    background-color: blue;
+}
+
+.ads {
+    height: 15vh;
+}
+
+#ad1 {
+    background-color: lavender;
+}
+
+#ad2 {
+    background-color: pink;
+}
+
+#ad3 {
+    background-color: palegoldenrod;
+}
+
+#ad4 {
+    background-color: lightcyan;
+}
