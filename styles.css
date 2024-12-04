@@ -56,11 +56,12 @@ ul li {
     background-color: black;
     padding: 5vh;
     margin-top: 3vh;
+    background-color: silver;
 }
 
 /*TESTING THIS*/
 h1, h2 {
-    display: flex-box;
+    display: flexbox;
     justify-content: center;
 }
 
