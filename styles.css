@@ -54,6 +54,14 @@ ul li {
 
 #paper {
     background-color: black;
+    padding: 5vh;
+    margin-top: 3vh;
+}
+
+/*TESTING THIS*/
+h1, h2 {
+    display: flex-box;
+    justify-content: center;
 }
 
 #headline-section {
@@ -87,6 +95,7 @@ ul li {
 
 .ads {
     height: 15vh;
+    margin-top: 2vh;
 }
 
 #ad1 {
