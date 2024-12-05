@@ -63,6 +63,10 @@ body {
     padding: 5vh;
     margin-top: 3vh;
     background-color: rgb(240, 237, 224);
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
 }
 
 h1 {
@@ -75,22 +79,31 @@ h2 {
 
 #headline-section {
     background-color: brown;
-    display: flex; 
+    display: flex;
+    justify-content: center; 
     align-items: center; 
     flex-direction: column;
+    width: 100%;
 }
 
 .articles {
     height: 40vh;
+    width: 100%;
+    margin: 2vh 0px;
+    position: relative; 
 }
 
 .articles > h2, h3 {
     text-transform:  capitalize;
 }
+
 .arts {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 15px;
+    right: 15px;
+    height: 30vw;
+    max-height: calc(30vh-30px);
+    width: 30vw;
     border: 3px solid #866BC9;
 }
 
@@ -117,7 +130,10 @@ h2 {
 
 .ads {
     height: 15vh;
-    margin-top: 2vh;
+    width: 50vw;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
 }
 
 #ad1 {
