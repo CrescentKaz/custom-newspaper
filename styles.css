@@ -52,25 +52,41 @@ ul li {
     list-style: none;
 }
 
-#paper {
+body {
+    margin: 0px;
+    padding: 0px;
     background-color: black;
-    padding: 5vh;
-    margin-top: 3vh;
-    background-color: silver;
 }
 
-/*TESTING THIS*/
-h1, h2 {
-    display: flexbox;
-    justify-content: center;
+#paper {
+    margin: 2vh;
+    padding: 5vh;
+    margin-top: 3vh;
+    background-color: rgb(240, 237, 224);
+}
+
+h1 {
+    text-transform: uppercase, full-width;
+}
+
+h2 {
+    text-transform: capitalize, full-width;
 }
 
 #headline-section {
     background-color: brown;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
 }
 
 .articles {
     height: 40vh;
+}
+
+.articles > h2, h3 {
+    text-transform:  capitalize;
 }
 
 #front-page-article {
