@@ -88,6 +88,12 @@ h2 {
 .articles > h2, h3 {
     text-transform:  capitalize;
 }
+.articles > img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border: 3px solid #866BC9;
+}
 
 #front-page-article {
     background-color: red;
