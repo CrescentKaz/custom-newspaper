@@ -75,8 +75,7 @@ h2 {
 
 #headline-section {
     background-color: brown;
-    display: flex;
-    justify-content: center; 
+    display: flex; 
     align-items: center; 
     flex-direction: column;
 }
@@ -88,7 +87,7 @@ h2 {
 .articles > h2, h3 {
     text-transform:  capitalize;
 }
-.articles > img {
+.arts {
     position: absolute;
     top: 0px;
     right: 0px;
