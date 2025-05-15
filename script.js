@@ -4,6 +4,10 @@ const day = today.getDate();
 const month = today.getMonth()+1;
 const year = today.getFullYear();
 
+const tagline = document.getElementById(tagline);
+
+tagline.innerText = "${month}-${day}-${year}"; 
+
 //the following is copied from freeCodeCamp. will need to tweak it for my purposes. 
 /*
 document.addEventListener('DOMContentLoaded', function () {
@@ -28,13 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(function (position) {
     document.getElementById('data').innerHTML =
-      'latitude: ' +
-      position.coords.latitude +
-      '<br>longitude: ' +
-      position.coords.longitude;
+      'latitude: ' + position.coords.latitude +
+      '<br>longitude: ' + position.coords.longitude;
   });
 }
 */
+
+// NOAA API is located at https://api.weather.gov 
+
 /*
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('getMessage').onclick = function () {
