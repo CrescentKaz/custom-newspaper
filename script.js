@@ -12,7 +12,7 @@ tagline.innerText = "${month}-${day}-${year}";
 // NOAA API is located at https://api.weather.gov 
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('sendMessage').onclick = function () {
+    document.getElementById('sendMessage').onclick = function () { //the developer tool doesn't like to set a property of null (setting 'onclick')
         const userName = document.getElementById('name').value;
         const url = 'https://api.weather.gov';
         const xhr = new XMLHttpRequest();
@@ -38,7 +38,7 @@ if (navigator.geolocation) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('getMessage').onclick = function () {
+    document.getElementById('getMessage').onclick = function () { //the developer tool doesn't like to set a property of null (setting 'onclick')
         const req = new XMLHttpRequest();
         req.open('GET', 'https://api.weather.gov', true);
         req.send();
