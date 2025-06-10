@@ -4,7 +4,7 @@ const day = today.getDate();
 const month = today.getMonth()+1;
 const year = today.getFullYear();
 
-const tagline = document.getElementById(tagline);
+const tagline = document.getElementById("tagline");
 
 tagline.innerText = "${month}-${day}-${year}"; 
 
