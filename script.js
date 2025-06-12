@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!headline || !abstract || !image || !link) return;
 
-  fetch('https://www.noaa.gov/news-features')
+  fetch('https://www.fisheries.noaa.gov/news-and-announcements/news')
     .then(response => response.json())
     .then(data => {
       if (!data || !data.features || data.features.length === 0) {
