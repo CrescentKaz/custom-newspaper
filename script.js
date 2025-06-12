@@ -6,28 +6,7 @@ const year = today.getFullYear();
 
 const tagline = document.getElementById("tagline");
 
-tagline.innerText = "${month}-${day}-${year}"; 
-
-//the following is copied from freeCodeCamp. will need to tweak it for my purposes. 
-// NOAA API is located at https://api.weather.gov 
-
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('sendMessage').onclick = function () { //the developer tool doesn't like to set a property of null (setting 'onclick')
-        const userName = document.getElementById('name').value;
-        const url = 'https://api.weather.gov';
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 201) {
-                const serverResponse = JSON.parse(xhr.response);
-                document.getElementsByClassName('message')[0].textContent = serverResponse.userName + serverResponse.suffix;
-            };
-        };
-    const body = JSON.stringify({ userName: userName, suffix: ' loves cats!' });
-    xhr.send(body);
-    };
-});
+tagline.innerText = `${month}-${day}-${year}`; 
 
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(function (position) {
@@ -38,28 +17,48 @@ if (navigator.geolocation) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('getMessage').onclick = function () { //the developer tool doesn't like to set a property of null (setting 'onclick')
-        const req = new XMLHttpRequest();
-        req.open('GET', 'https://api.weather.gov', true);
-        req.send();
-        req.onload = function () {
-            let json = JSON.parse(req.responseText);
-            let html = '';
-            json = json.filter(function (val) {
-                return val.id !== 1;
-            });
-            json.forEach(function (val) {
-                html += "<p class='weatherData'>" + val + "</p>";
-            });
-            document.getElementsByClassName('articles')[1].innerHTML = html;
-        };
-    };
+  const headline = document.getElementById('article2-headline');
+  const abstract = document.getElementById('article2');
+  const image = document.getElementById('art2');
+  const link = document.getElementById('article2-link');
+
+  if (!headline || !abstract || !image || !link) return;
+
+  fetch('https://api.weather.gov/featured')
+    .then(response => response.json())
+    .then(data => {
+      if (!data || !data.features || data.features.length === 0) {
+        headline.textContent = 'No articles found';
+        abstract.textContent = '';
+        image.style.display = 'none';
+        link.removeAttribute('href');
+        return;
+      }
+
+      const latest = data.features[0];
+      const title = latest.properties.title || 'Untitled';
+      const summary = latest.properties.summary || 'No summary available.';
+      const imgUrl = latest.properties.image || null;
+      const articleUrl = latest.properties.url || '#';
+
+      headline.textContent = title;
+      abstract.textContent = summary;
+      link.href = articleUrl;
+
+      if (imgUrl) {
+        image.src = imgUrl;
+        image.alt = title;
+        image.style.display = 'block';
+      } else {
+        image.style.display = 'none';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching NOAA data:', error);
+      headline.textContent = 'Error loading article';
+      abstract.textContent = '';
+      image.style.display = 'none';
+      link.removeAttribute('href');
+    });
 });
 
-/*
-            json.forEach(function (val) {
-                html += "<div class = 'cat'>";
-                html +="<img src='" + val.imageLink + "' " + "alt='" + val.altText + "'>";
-                html += '</div>';
-            });
-*/
