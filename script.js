@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!headline || !abstract || !image || !link) return;
 
-  fetch('https://www.fisheries.noaa.gov/news-and-announcements/news')
+  fetch('https://api.semanticscholar.org/graph/v1/paper/search?query=shark&fieldsOfStudy=Biology,"Environmental Science"&year=2025&openAccessPdf&fields=title,authors,abstract,image&limit=1')
     .then(response => response.json())
     .then(data => {
       if (!data || !data.features || data.features.length === 0) {
@@ -35,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      const latest = data.features[0];
+      const latest = data.paperId[0];
       const title = latest.properties.title || 'Untitled';
-      const summary = latest.properties.summary || 'No summary available.';
+      const summary = latest.properties.abstract || 'No abstract available.';
       const imgUrl = latest.properties.image || null;
       const articleUrl = latest.properties.url || '#';
 
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     })
     .catch(error => {
-      console.error('Error fetching NOAA data:', error);
+      console.error('Error fetching Shark research data:', error);
       headline.textContent = 'Error loading article';
       abstract.textContent = '';
       image.style.display = 'none';
