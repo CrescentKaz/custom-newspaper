@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!headline || !abstract || !image || !link) return;
 
-  fetch('https://api.weather.gov/featured')
+  fetch('https://www.noaa.gov/news-features')
     .then(response => response.json())
     .then(data => {
       if (!data || !data.features || data.features.length === 0) {
