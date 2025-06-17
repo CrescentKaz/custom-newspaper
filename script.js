@@ -24,7 +24,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!headline || !abstract || !image || !link) return;
 
-  fetch('https://api.semanticscholar.org/graph/v1/paper/search?query=shark&fieldsOfStudy=Biology,"Environmental Science"&year=2025&openAccessPdf&fields=title,authors,abstract,image&limit=1')
+  fetch('https://api.semanticscholar.org/graph/v1/paper/search
+  ?query=shark
+  &year=2025
+  &openAccessPdf=true
+  &fields=title,authors,abstract,year
+  &limit=1')
     .then(response => response.json())
     .then(data => {
       if (!data || !data.features || data.features.length === 0) {
