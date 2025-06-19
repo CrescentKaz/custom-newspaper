@@ -1,54 +1,26 @@
+<!-- Yge following was copied from ChatGPT and may require editing.  -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Newspaper</title>
-    <link rel="stylesheet" href="./styles.css">
-  </head>
-  <body>
-    <header id="topbar"></header>
-    <header id="sidebar"></header>
-    <main>
-        <section id="paper">
-            <div id="headline-section">
-                <h1>Today's News!</h1>
-                <h2 id="tagline"></h2>
-            </div>
-            <div id="front-page-article" class="articles">
-                <h2 id="article1-headline">Article 1</h2>
-                <p id="article1">text text text</p>
-                <img id="art1" class="arts" src=""/>
-            </div>
-            <div id="ad1" class="ads"></div>
-            <div id="second-article" class="articles">
-                <a id="article2-link" href="#" target="_blank">
-                    <h3 id="article2-headline">Article 2</h3>
-                    <img id="art2" class="arts" src="" alt="Article 2 image" style="display: none;" />
-                </a>
-                <p id="article2">text text text</p>
-            </div>
-            <div id="ad2" class="ads"></div>
-            <div id="third-article" class="articles">
-                <h3 id="article3-headline">Article 3</h3>
-                <p id="article3">text text text</p>
-                <img id="art3" class="arts" src=""/>
-            </div>
-            <div id="ad3" class="ads"></div>
-            <div id="fourth-article" class="articles">
-                <h3 id="article4-headline">Article 4</h3>
-                <p id="article4">text text text</p>
-                <img id="art4" class="arts" src=""/>
-            </div>
-            <div id="ad4" class="ads"></div>
-            <div id="fifth-article" class="articles">
-                <h3 id="article5-headline">Article 5</h3>
-                <p id="article5">text text text</p>
-                <img id="art5" class="arts" src=""/>
-            </div>
-        </section>
-    </main>
-    <script src="./script.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Daily Feed</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>The Daily Feed</h1>
+    <p class="date" id="date"></p>
+  </header>
+
+  <main id="news-container">
+    <!-- News articles will be injected here -->
+  </main>
+
+  <footer>
+    <p>&copy; 2025 The Daily Feed. All news courtesy of public APIs.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
-<!-- test -->
