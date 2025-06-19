@@ -1,114 +1,117 @@
-//this is the JS file that will house the backend for the APIs
-const today = new Date();
-const day = today.getDate();
-const month = today.getMonth()+1;
-const year = today.getFullYear();
+//the following was made with ChatGPT and may require editing. 
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("news-container");
+  const date = document.getElementById("date");
 
-const tagline = document.getElementById("tagline");
+  const today = new Date();
+  date.innerText = today.toDateString();
 
-tagline.innerText = `${month}-${day}-${year}`; 
-
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function (position) {
-    document.getElementById('article1').innerHTML =
-      'latitude: ' + position.coords.latitude +
-      '<br>longitude: ' + position.coords.longitude;
-  });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  const headline = document.getElementById('article2-headline');
-  const abstract = document.getElementById('article2');
-  const image = document.getElementById('art2');
-  const link = document.getElementById('article2-link');
-
-  if (!headline || !abstract || !image || !link) return;
-
-  fetch('https://api.semanticscholar.org/graph/v1/paper/search
-  ?query=shark
-  &year=2025
-  &openAccessPdf=true
-  &fields=title,authors,abstract,year
-  &limit=1')
-    .then(response => response.json())
+  // 1. Reddit WorldNews
+  fetch("https://www.reddit.com/r/worldnews/.json")
+    .then(res => res.json())
     .then(data => {
-      if (!data || !data.features || data.features.length === 0) {
-        headline.textContent = 'No articles found';
-        abstract.textContent = '';
-        image.style.display = 'none';
-        link.removeAttribute('href');
-        return;
-      }
-
-      const latest = data.paperId[0];
-      const title = latest.properties.title || 'Untitled';
-      const summary = latest.properties.abstract || 'No abstract available.';
-      const imgUrl = latest.properties.image || null;
-      const articleUrl = latest.properties.url || '#';
-
-      headline.textContent = title;
-      abstract.textContent = summary;
-      link.href = articleUrl;
-
-      if (imgUrl) {
-        image.src = imgUrl;
-        image.alt = title;
-        image.style.display = 'block';
-      } else {
-        image.style.display = 'none';
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching Shark research data:', error);
-      headline.textContent = 'Error loading article';
-      abstract.textContent = '';
-      image.style.display = 'none';
-      link.removeAttribute('href');
+      const posts = data.data.children.slice(0, 3);
+      posts.forEach(post => {
+        const item = post.data;
+        addArticle({
+          title: item.title,
+          summary: "Reddit r/worldnews",
+          link: "https://reddit.com" + item.permalink,
+          image: item.thumbnail && item.thumbnail.startsWith("http") ? item.thumbnail : null
+        });
+      });
     });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
-  const headline = document.getElementById('article3-headline');
-  const abstract = document.getElementById('article3');
-  const image = document.getElementById('art3');
-  const link = document.getElementById('article3-link');
-
-  if (!headline || !abstract || !image || !link) return;
-
-  fetch('https://gnews.io/api/v4/search?q=new%20video%20games&lang=en&max=1&token=YOUR_API_KEY')
-    .then(response => response.json())
+  // 2. Semantic Scholar - shark papers in 2025
+  fetch("https://api.semanticscholar.org/graph/v1/paper/search?query=shark&year=2025&openAccessPdf=true&fields=title,authors,abstract,year&limit=1")
+    .then(res => res.json())
     .then(data => {
-      if (!data || !data.articles || data.articles.length === 0) {
-        headline.textContent = 'No articles found';
-        abstract.textContent = '';
-        image.style.display = 'none';
-        link.removeAttribute('href');
-        return;
+      const paper = data.data[0];
+      if (paper) {
+        addArticle({
+          title: paper.title,
+          summary: paper.abstract || "No abstract available.",
+          link: "https://www.semanticscholar.org/search?q=" + encodeURIComponent(paper.title),
+          image: null
+        });
       }
-
-      const article = data.articles[0];
-      const title = article.title || 'Untitled';
-      const summary = article.description || 'No summary available.';
-      const imgUrl = article.image || null;
-      const articleUrl = article.url || '#';
-
-      headline.textContent = title;
-      abstract.textContent = summary;
-      link.href = articleUrl;
-
-      if (imgUrl) {
-        image.src = imgUrl;
-        image.alt = title;
-        image.style.display = 'block';
-      } else {
-        image.style.display = 'none';
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching gaming news:', error);
-      headline.textContent = 'Error loading article';
-      abstract.textContent = '';
-      image.style.display = 'none';
-      link.removeAttribute('href');
     });
+
+  // 3. Wikipedia Featured Feed
+  fetch(`https://en.wikipedia.org/api/rest_v1/feed/featured/${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.tfa) {
+        const item = data.tfa;
+        addArticle({
+          title: item.titles.normalized,
+          summary: item.extract,
+          link: item.content_urls.desktop.page,
+          image: item.thumbnail ? item.thumbnail.source : null
+        });
+      }
+    });
+
+  // 4. Hacker News - top stories
+  fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
+    .then(res => res.json())
+    .then(ids => {
+      return Promise.all(
+        ids.slice(0, 3).map(id =>
+          fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(res => res.json())
+        )
+      );
+    })
+    .then(articles => {
+      articles.forEach(item => {
+        addArticle({
+          title: item.title,
+          summary: "Hacker News",
+          link: item.url || `https://news.ycombinator.com/item?id=${item.id}`,
+          image: null
+        });
+      });
+    });
+
+  // 5. NYT via RSS2JSON proxy (static parsing)
+  fetch("https://api.rss2json.com/v1/api.json?rss_url=https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml")
+    .then(res => res.json())
+    .then(data => {
+      data.items.slice(0, 3).forEach(item => {
+        addArticle({
+          title: item.title,
+          summary: item.description.replace(/<[^>]*>?/gm, "").slice(0, 200) + "...",
+          link: item.link,
+          image: item.enclosure?.link || null
+        });
+      });
+    });
+
+  // Injects articles into the page
+  function addArticle({ title, summary, link, image }) {
+    const article = document.createElement("article");
+
+    if (image) {
+      const img = document.createElement("img");
+      img.src = image;
+      img.alt = title;
+      article.appendChild(img);
+    }
+
+    const h2 = document.createElement("h2");
+    h2.textContent = title;
+    article.appendChild(h2);
+
+    const p = document.createElement("p");
+    p.textContent = summary;
+    article.appendChild(p);
+
+    const a = document.createElement("a");
+    a.href = link;
+    a.textContent = "Read more →";
+    a.target = "_blank";
+    article.appendChild(a);
+
+    container.appendChild(article);
+  }
 });
