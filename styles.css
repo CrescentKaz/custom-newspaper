@@ -1,123 +1,62 @@
-:root {
-    --blackish: #010108;
-    --dark_purple: #1B0259;
-    --light_purple: #866BC9;
-    --navy_black: #0E0D30;
-    --dark_blue: #050178;
-    --royal_blue: #0704C2;
-    --pastel_blue: #4D7BF0;
-    --whiteish: #FCFCFC;
-}
-
+/* The folowing was copied from ChatGPT and may require editing. */
+/* Basic newspaper feel */
 body {
-    margin: 0px;
-    padding: 0px;
-    background-color: black;
+  font-family: Georgia, 'Times New Roman', serif;
+  background-color: #fdfdfd;
+  color: #222;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
-#paper {
-    margin: 2vh;
-    padding: 5vh;
-    margin-top: 3vh;
-    background-color: rgb(240, 237, 224);
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    flex-direction: column;
+header {
+  background: #eee;
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 2px solid #ccc;
 }
 
-h1 {
-    text-transform: uppercase, full-width;
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
 }
 
-h2 {
-    text-transform: capitalize, full-width;
+.date {
+  font-size: 0.9rem;
+  color: #666;
 }
 
-#headline-section {
-    background-color: brown;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    flex-direction: column;
-    width: 100%;
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
 }
 
-.articles {
-    height: 40vh;
-    width: 100%;
-    margin: 2vh 0px;
-    padding: 0 2vh;
-    position: relative; 
+article {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  background: #fff;
 }
 
-.articles > h2, h3 {
-    text-transform:  capitalize;
-    font-size: larger;
+article img {
+  max-width: 100%;
+  height: auto;
 }
 
-.articles > p {
-    border: 3px solid #85f5ef;
-    height: 31vh;
-    display: block;
+article h2 {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
 }
 
-#article1 {
-    height: 67vh;
+article p {
+  font-size: 0.95rem;
 }
 
-.arts {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    height: 30vw;
-    max-height: calc(30vh - -60px);
-    width: 30vw;
-    max-width: calc(30vh - -60px);
-    border: 3px solid #866BC9;
-}
-
-#front-page-article {
-    background-color: red;
-    height: 75vh;
-}
-
-#second-article {
-    background-color: orange;
-}
-
-#third-article {
-    background-color: yellow;
-}
-
-#fourth-article {
-    background-color: green;
-}
-
-#fifth-article {
-    background-color: blue;
-}
-
-.ads {
-    height: 15vh;
-    width: 50vw;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-}
-
-#ad1 {
-    background-color: lavender;
-}
-
-#ad2 {
-    background-color: pink;
-}
-
-#ad3 {
-    background-color: palegoldenrod;
-}
-
-#ad4 {
-    background-color: lightcyan;
+footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #777;
+  padding: 1rem;
+  border-top: 1px solid #ccc;
 }
