@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const today = new Date();
   date.innerText = today.toDateString();
 
+/*
   // 1. Reddit WorldNews
   fetch("https://www.reddit.com/r/worldnews/.json")
     .then(res => res.json())
@@ -21,9 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
     });
+*/
 
   // 2. Semantic Scholar - shark papers in 2025
-  fetch("https://api.semanticscholar.org/graph/v1/paper/search?query=shark&year=2025&openAccessPdf=true&fields=title,authors,abstract,year&limit=1")
+  fetch("https://api.semanticscholar.org/graph/v1/paper/search?query=shark&year=2025&openAccessPdf=true&fields=title,authors,abstract,year&limit=3")
     .then(res => res.json())
     .then(data => {
       const paper = data.data[0];
