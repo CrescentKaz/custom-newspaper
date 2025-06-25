@@ -41,7 +41,10 @@ article {
 }
 
 article img {
-  max-width: 95vw;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 article h2 {
@@ -59,4 +62,22 @@ footer {
   color: #777;
   padding: 1rem;
   border-top: 1px solid #ccc;
+}
+
+@media (max-width: 600px) {
+  article {
+    padding: 0.5rem;
+  }
+
+  article h2 {
+    font-size: 1rem;
+  }
+
+  article p {
+    font-size: 0.85rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
 }
