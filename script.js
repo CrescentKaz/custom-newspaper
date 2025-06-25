@@ -28,16 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch("https://api.semanticscholar.org/graph/v1/paper/search?query=shark&year=2025&openAccessPdf=true&fields=title,authors,abstract,year&limit=3")
     .then(res => res.json())
     .then(data => {
-      const paper = data.data[0];
-      if (paper) {
+      data.data.forEach(paper => {
         addArticle({
           title: paper.title,
           summary: paper.abstract || "No abstract available.",
-          link: "https://www.semanticscholar.org/search?q=" + encodeURIComponent(paper.title),
-          image: null
-        });
-      }
+            link: "https://www.semanticscholar.org/search?q=" + encodeURIComponent(paper.title),
+      image: null
     });
+  });
+});
 
   // 3. Wikipedia Featured Feed
   fetch(`https://en.wikipedia.org/api/rest_v1/feed/featured/${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`)
