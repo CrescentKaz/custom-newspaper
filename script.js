@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         addArticle({
           title: paper.title,
           summary: paper.abstract || "No abstract available.",
-            link: "https://www.semanticscholar.org/search?q=" + encodeURIComponent(paper.title),
+            link: `https://www.semanticscholar.org/paper/${paper.paperId}`,
       image: null
     });
   });
