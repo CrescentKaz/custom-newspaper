@@ -88,6 +88,21 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
+// 6. Yahoo World News via RSS2JSON
+fetch('https://api.rss2json.com/v1/api.json?rss_url=https://news.yahoo.com/rss/world')
+  .then(res => res.json())
+  .then(data => {
+    data.items.slice(0, 3).forEach(item => {
+      addArticle({
+        title: item.title,
+        summary: item.description.replace(/<[^>]*>/g, '').slice(0, 200) + '...',
+        link: item.link,
+        image: item.enclosure?.link || null
+      });
+    });
+  })
+  .catch(err => console.error("Yahoo World fetch error:", err));
+
   // Injects articles into the page
   function addArticle({ title, summary, link, image }) {
     const article = document.createElement("article");
