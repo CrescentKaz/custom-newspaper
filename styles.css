@@ -38,6 +38,8 @@ article {
   border: 1px solid #ccc;
   padding: 1rem;
   background: #fff;
+  width: 100%;
+  overflow: hidden;
 }
 
 article img {
@@ -45,6 +47,7 @@ article img {
   height: auto;
   display: block;
   margin: 0 auto;
+  object-fit: contain;
 }
 
 article h2 {
