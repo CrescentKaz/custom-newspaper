@@ -6,25 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const today = new Date();
   date.innerText = today.toDateString();
 
-/*
-  // 1. Reddit WorldNews
-  fetch("https://www.reddit.com/r/worldnews/.json")
-    .then(res => res.json())
-    .then(data => {
-      const posts = data.data.children.slice(0, 3);
-      posts.forEach(post => {
-        const item = post.data;
-        addArticle({
-          title: item.title,
-          summary: "Reddit r/worldnews",
-          link: "https://reddit.com" + item.permalink,
-          image: item.thumbnail && item.thumbnail.startsWith("http") ? item.thumbnail : null
-        });
-      });
-    });
-*/
-
-  // 2. Semantic Scholar - shark papers in 2025
+  // 1. Semantic Scholar - shark papers in 2025
   fetch("https://api.semanticscholar.org/graph/v1/paper/search?query=shark&year=2025&openAccessPdf=true&fields=title,authors,abstract,year&limit=3")
     .then(res => res.json())
     .then(data => {
@@ -38,22 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-  // 3. Wikipedia Featured Feed
-  fetch(`https://en.wikipedia.org/api/rest_v1/feed/featured/${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.tfa) {
-        const item = data.tfa;
-        addArticle({
-          title: item.titles.normalized,
-          summary: item.extract,
-          link: item.content_urls.desktop.page,
-          image: item.thumbnail ? item.thumbnail.source : null
-        });
-      }
-    });
-
-  // 4. Hacker News - top stories
+  // 2. Hacker News - top stories
   fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
     .then(res => res.json())
     .then(ids => {
@@ -74,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-  // 5. NYT via RSS2JSON proxy (static parsing)
+  // 3. NYT via RSS2JSON proxy (static parsing)
   fetch("https://api.rss2json.com/v1/api.json?rss_url=https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml")
     .then(res => res.json())
     .then(data => {
@@ -88,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-// 6. Yahoo World News via RSS2JSON
+// 4. Yahoo World News via RSS2JSON
 fetch('https://api.rss2json.com/v1/api.json?rss_url=https://news.yahoo.com/rss/world')
   .then(res => res.json())
   .then(data => {
