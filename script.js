@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+/*
   // 2. Hacker News - top stories
   fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
     .then(res => res.json())
@@ -40,6 +41,37 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
     });
+*/
+
+  // 2.1 TechCrunch via RSS2JSON
+fetch('https://api.rss2json.com/v1/api.json?rss_url=https://techcrunch.com/feed/')
+  .then(res => res.json())
+  .then(data => {
+    data.items.slice(0, 3).forEach(item => {
+      addArticle({
+        title: item.title,
+        summary: item.description.replace(/<[^>]*>/g, '').slice(0, 200) + '...',
+        link: item.link,
+        image: item.enclosure?.link || null
+      });
+    });
+  })
+  .catch(err => console.error("TechCrunch fetch error:", err));
+
+// 2.2 The Register Software News via RSS2JSON
+fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.theregister.com/software/headlines.atom')
+  .then(res => res.json())
+  .then(data => {
+    data.items.slice(0, 3).forEach(item => {
+      addArticle({
+        title: item.title,
+        summary: item.description.replace(/<[^>]*>/g, '').slice(0, 200) + '...',
+        link: item.link,
+        image: item.enclosure?.link || null
+      });
+    });
+  })
+  .catch(err => console.error("The Register fetch error:", err));
 
   // 3. NYT via RSS2JSON proxy (static parsing)
   fetch("https://api.rss2json.com/v1/api.json?rss_url=https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml")
@@ -69,6 +101,21 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=https://news.yahoo.com/rss/w
     });
   })
   .catch(err => console.error("Yahoo World fetch error:", err));
+
+// 5. IGN Gaming News via RSS2JSON
+fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feeds.ign.com/ign/games-all')
+  .then(res => res.json())
+  .then(data => {
+    data.items.slice(0, 3).forEach(item => {
+      addArticle({
+        title: item.title,
+        summary: item.description.replace(/<[^>]*>/g, '').slice(0, 200) + '...',
+        link: item.link,
+        image: item.enclosure?.link || null
+      });
+    });
+  })
+  .catch(err => console.error("IGN fetch error:", err));
 
   // Injects articles into the page
   function addArticle({ title, summary, link, image }) {
